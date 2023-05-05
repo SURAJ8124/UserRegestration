@@ -33,6 +33,7 @@ function Regestration() {
   };
 
   const onSubmit = (values, { resetForm }) => {
+    console.log(values,"values");
     // Process form submission
     resetForm();
   }
