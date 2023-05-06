@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Button, TextField } from '@material-ui/core';
+import axios from 'axios';
 function Regestration() {
   const initialValues = {
     username: '',
@@ -31,12 +32,39 @@ function Regestration() {
     }
     return errors;
   };
-
+ 
   const onSubmit = (values, { resetForm }) => {
-    console.log(values,"values");
+
+    fetch('http://localhost:9002/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(values)
+    })
+    // const jsonString = JSON.stringify(values);
+    // axios.post("http://localhost:9002/register",jsonString)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+      });
+   
+    // const jsonString = JSON.stringify(values); 
+    //   axios.post("http://localhost:9002/register",jsonString)
+    //   .then(res=>console.log)
+   
     // Process form submission
     resetForm();
   }
+  
 
   return (
     <div className="registration-form">

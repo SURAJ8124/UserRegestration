@@ -41,7 +41,7 @@ const Login = () => {
           <Button type="submit" variant="contained" color="primary" disabled={!isValid} className="login-button">Login</Button>
     
         </Form>
-        <a href='/regestration'>Regestration</a>
+        <a href='/register'>Regestration</a>
         <p>  </p>
         <a href='/changepassword'>Change  password</a>
         </div>
