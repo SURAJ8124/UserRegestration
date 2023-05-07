@@ -3,6 +3,7 @@ import { Formik, Form, Field } from 'formik';
 import { TextField, Button } from '@material-ui/core';
 
 
+
 const initialValues = {
   email: '',
   password: '',
@@ -36,13 +37,15 @@ const onSubmit = (values, { resetForm }) => {
       return response.json();
     })
     .then(data => {
-      console.log(data);
+      alert(data.message,"data");
     })
     .catch(error => {
       console.error('There was a problem with the fetch operation:', error);
     });
     resetForm();
 };
+
+
 
 const Login = () => {
 
