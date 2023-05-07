@@ -21,8 +21,27 @@ const validate = (values) => {
   return errors;
 };
 
-const onSubmit = (values) => {
-  console.log(values);
+const onSubmit = (values, { resetForm }) => {
+  fetch('http://localhost:9002/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(values)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.error('There was a problem with the fetch operation:', error);
+    });
+    resetForm();
 };
 
 const Login = () => {
