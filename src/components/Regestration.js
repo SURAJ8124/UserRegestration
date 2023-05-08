@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
-import { Button, TextField } from '@material-ui/core';
-import axios from 'axios';
+import { Button, TextField,Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
 function Regestration() {
+  const useStyles = makeStyles((theme) => ({
+    heading: {
+      marginBottom: theme.spacing(2),
+      fontWeight: theme.typography.fontWeightBold,
+    },
+  }));
+  
+  const classes = useStyles();
+  
   const initialValues = {
     username: '',
     email: '',
@@ -42,8 +52,7 @@ function Regestration() {
       },
       body: JSON.stringify(values)
     })
-    // const jsonString = JSON.stringify(values);
-    // axios.post("http://localhost:9002/register",jsonString)
+    
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -51,24 +60,23 @@ function Regestration() {
         return response.json();
       })
       .then(data => {
-        console.log(data);
+       alert(data.message);
+       window.location.href = '/'
       })
       .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
       });
    
-    // const jsonString = JSON.stringify(values); 
-    //   axios.post("http://localhost:9002/register",jsonString)
-    //   .then(res=>console.log)
-   
-    // Process form submission
     resetForm();
   }
-  
+
+ 
 
   return (
     <div className="registration-form">
-      <h2>Register</h2>
+      <Typography variant="h4" component="h1" className="Heading">
+            Register
+          </Typography>
       <Formik initialValues={initialValues} validate={validate} onSubmit={onSubmit}>
         {({ isValid }) => (
           <Form>
