@@ -1,27 +1,36 @@
 import { Button,Typography } from '@material-ui/core';
-import React from 'react'
+import React, { useState,useContext } from 'react'
+import { UserContext } from '../App';
+import EditProfile from './EditProfile';
 
-const HomePage = (props) => {
+
+const HomePage = ({setuser,setUpdate}) => {
+  const { user } = useContext(UserContext);
+  const [visible, setVisible] = useState(true);
+
+  const toggleVisibility = () => {
+    setVisible(!visible);
+  }
  const LogOut=()=>{
-  props.setUser("")
- }
-    
- const EditProfile =()=>{
-  window.location.href = '/editprofile'
+  setuser({})
  }
   return (
-    <form className="registration-form">
+    <>
+     {visible ?<form className="registration-form">
       <Typography variant="h4" component="h1" className="Heading">
       Home Page
           </Typography>
           <div className='homePageDetails'>
-          <Typography > Name: {props.user.name}</Typography>
-          <Typography> EmailId:{props.user.email}</Typography>
-          <Typography> Password:{props.user.password}</Typography>
+          {user?<Typography > Name: {user._id}</Typography>:"Plese login"}
+          {user?<Typography > Name: {user.name}</Typography>:"Plese login"}
+          {user?<Typography> EmailId:{user.email}</Typography>:"Plese login"}
+          {user?<Typography> Password:{user.password}</Typography>:"Plese login"}
           </div>
     <Button className='HomeButton' variant="contained" color="primary" onClick={LogOut} >LogOut</Button>
-    <Button className='HomeButton' variant="contained" color="primary" onClick={EditProfile} >Edit Profile</Button>
-    </form>
+    <Button className='HomeButton' variant="contained" color="primary" onClick={toggleVisibility} >Edit Profile</Button>
+    </form>:
+     <EditProfile newUser={user._id}toggleVisibility={toggleVisibility} setUpdate={setUpdate}/>}
+     </>
   )
 }
 

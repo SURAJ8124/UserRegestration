@@ -14,7 +14,7 @@ function Regestration() {
   const classes = useStyles();
   
   const initialValues = {
-    username: '',
+    name: '',
     email: '',
     password: '',
     confirmPassword: ''
@@ -22,8 +22,8 @@ function Regestration() {
 
   const validate = (values) => {
     const errors = {};
-    if (!values.username) {
-      errors.username = 'Username is required';
+    if (!values.name) {
+      errors.name = 'Username is required';
     }
     if (!values.email) {
       errors.email = 'Email is required';
@@ -44,7 +44,6 @@ function Regestration() {
   };
  
   const onSubmit = (values, { resetForm }) => {
-
     fetch('http://localhost:9002/register', {
       method: 'POST',
       headers: {
@@ -60,8 +59,11 @@ function Regestration() {
         return response.json();
       })
       .then(data => {
+        console.log(data,"data")
        alert(data.message);
-       window.location.href = '/'
+       if(data.message==="Successfully registered"){
+        window.location.href = "/";
+       }
       })
       .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
@@ -80,11 +82,15 @@ function Regestration() {
       <Formik initialValues={initialValues} validate={validate} onSubmit={onSubmit}>
         {({ isValid }) => (
           <Form>
-            <Field as={TextField} name="username" label="Username" fullWidth margin="normal" />
+            <Field as={TextField} name="name" label="Username" fullWidth margin="normal" />
             <Field as={TextField} name="email" label="Email" fullWidth margin="normal" />
             <Field as={TextField} name="password" label="Password" type="password" fullWidth margin="normal" />
-            <Field as={TextField} name="confirmPassword" label="Confirm Password" type="password" fullWidth margin="normal" />
-            <Button type="submit" variant="contained" color="primary" disabled={!isValid}>Register</Button>
+           <Field as={TextField} name="confirmPassword" label="Confirm Password" type="password" fullWidth margin="normal" />
+            <br/>
+            <div className="button-container">
+            <Button type="submit" variant="contained" color="primary" disabled={!isValid} size='large'>Register</Button>
+            <Button typre="register" variant="contained" color="primary" href='/' size='medium'>Back to Login</Button>
+            </div>
           </Form>
         )}
       </Formik>

@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
+import React, {useContext} from 'react';
 import { Formik, Form, Field } from 'formik';
 import { TextField, Button,Typography } from '@material-ui/core';
 import  { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import {UserContext} from '../App'
 
 
-const Login = ({setUser}) => {
 
+const Login = () => {
+  const { setUser } = useContext(UserContext);
   const useStyles = makeStyles((theme) => ({
     heading: {
       marginBottom: theme.spacing(2),
@@ -16,6 +18,7 @@ const Login = ({setUser}) => {
   const classes = useStyles();
  
   const [error, setError] = useState(null);
+ 
   const initialValues = {
     email: '',
     password: '',
@@ -34,8 +37,6 @@ const Login = ({setUser}) => {
     return errors;
   };
 
-  
-  
   const  onSubmit = async (values, { resetForm }) => {
     await fetch('http://localhost:9002/login', {
         method: 'POST',
@@ -53,9 +54,8 @@ const Login = ({setUser}) => {
       })
       .then(data => {
         alert(data.message,"data"); 
-        setUser(data.user,"userdata")
-        console.log(data.user.id,"userdata")
-        window.location.href = '/'
+        setUser(data.user)
+        
       })
       .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
@@ -69,7 +69,7 @@ const Login = ({setUser}) => {
     
  
  
-  return (
+  return (<>
     <div className="root">
     <Formik initialValues={initialValues} validate={validate} onSubmit={onSubmit}>
       {({isValid}) => (
@@ -82,14 +82,19 @@ const Login = ({setUser}) => {
           <Field as={TextField} name="email" label="Email" fullWidth margin="normal" />
           <Field as={TextField} name="password" label="Password" type="password" fullWidth margin="normal" />
           <Button type="submit" variant="contained" color="primary" disabled={!isValid} className="login-button">Login</Button>
+          <Typography>OR</Typography>
+          <Button typre="register" variant="contained" color="primary"className="login-button" href='/register'>Registration</Button>
           {error && <Typography color="error">{classes.error}</Typography>}
         </Form>
-        <a href='/register'>Registration</a>
+       
         </div>
         
       )}
     </Formik>
-    </div>
+
+   
+    </div>  
+    </>
    
   );
 };
