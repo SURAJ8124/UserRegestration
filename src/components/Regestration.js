@@ -44,7 +44,7 @@ function Regestration() {
   };
  
   const onSubmit = (values, { resetForm }) => {
-    fetch('http://localhost:9002/register', {
+    fetch('https://userregistreation.onrender.com/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

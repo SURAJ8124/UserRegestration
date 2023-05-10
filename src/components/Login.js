@@ -4,10 +4,17 @@ import { TextField, Button,Typography, } from '@material-ui/core';
 import  { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {UserContext} from '../App'
+import Regestration from './Regestration';
 
 
 
 const Login = () => {
+
+  const [visible, setVisible] = useState(true);
+
+const toggleVisibility = () => {
+  setVisible(!visible);
+}
   const { setUser } = useContext(UserContext);
   const useStyles = makeStyles((theme) => ({
     heading: {
@@ -44,10 +51,11 @@ const Login = () => {
    
   };
 
+  const url="mongodb+srv://surajchavan1532:LFzND8RMnbuMozjJ@cluster0.jeuhijb.mongodb.net/nodeJSEsayWay?retryWrites=true&w=majority"
  
   const  onSubmit = async (values, { resetForm }) => {
     
-    await fetch('http://localhost:9002/login', {
+    await fetch('https://userregistreation.onrender.com/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -80,7 +88,7 @@ const Login = () => {
  
  
   return (<>
-    <div className="root">
+    {visible ?<div className="root">
     <Formik initialValues={initialValues} validate={validate} onSubmit={onSubmit}>
       {({errors, touched}) => (
         
@@ -96,16 +104,13 @@ const Login = () => {
           {errors.password && touched.password && <div className="error">{errors.password}</div>}
           <Button type="submit" variant="contained" color="primary" className="login-button" >Login</Button>
           <Typography>OR</Typography>
-          <Button typre="register" variant="contained" color="primary"className="login-button" href='/register'>Registration</Button>
+          <Button typre="register" variant="contained" color="primary"className="login-button" onClick={toggleVisibility}>Registration</Button>
         </Form>
-       
-        </div>
-        
+        </div> 
       )}
     </Formik>
-
-   
-    </div>  
+ </div>:
+ <Regestration/>}  
     </>
    
   );
