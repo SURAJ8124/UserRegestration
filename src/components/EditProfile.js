@@ -41,7 +41,7 @@ const EditProfile = ({newUser,toggleVisibility}) => {
     alert("Are you sure to update your Username and password ?")
     const id = newUser;
     try {
-      const response = await fetch(`http://localhost:9002/update/${id}`, {
+      const response = await fetch(`https://userregistreation.onrender.com/update/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
