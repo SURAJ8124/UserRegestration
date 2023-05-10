@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
-import { Formik, Form, Field } from 'formik';
-import { TextField, Button,Typography } from '@material-ui/core';
+import { Formik, Form, Field,ErrorMessage,FormikErrors} from 'formik';
+import { TextField, Button,Typography, } from '@material-ui/core';
 import  { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {UserContext} from '../App'
@@ -14,30 +14,39 @@ const Login = () => {
       marginBottom: theme.spacing(2),
       fontWeight: theme.typography.fontWeightBold,
     },
+    error: {
+      color: 'red',
+      marginTop: theme.spacing(1),
+    },
   }));
   const classes = useStyles();
  
-  const [error, setError] = useState(null);
+  
  
   const initialValues = {
     email: '',
     password: '',
   };
   
+
+ 
   const validate = (values) => {
     const errors = {};
     if (!values.email) {
-      setError ('Required');
+      errors.email= 'Required';
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-      setError ('Invalid email address');
+      errors.email = 'Invalid email address';
     }
     if (!values.password) {
-      setError ('Required') ;
+      errors.password ='Required';
     }
     return errors;
+   
   };
 
+ 
   const  onSubmit = async (values, { resetForm }) => {
+    
     await fetch('http://localhost:9002/login', {
         method: 'POST',
         headers: {
@@ -61,6 +70,7 @@ const Login = () => {
         console.error('There was a problem with the fetch operation:', error);
       });
       resetForm();
+      console.log(classes.errors,"class")
   };
  
 
@@ -72,7 +82,7 @@ const Login = () => {
   return (<>
     <div className="root">
     <Formik initialValues={initialValues} validate={validate} onSubmit={onSubmit}>
-      {({isValid}) => (
+      {({errors, touched}) => (
         
         <div className="registration-form">
         <Form className="login-form">
@@ -80,11 +90,13 @@ const Login = () => {
       Login Page
           </Typography>
           <Field as={TextField} name="email" label="Email" fullWidth margin="normal" />
+          {errors.email && touched.email && <div className="error">{errors.email}</div>}
           <Field as={TextField} name="password" label="Password" type="password" fullWidth margin="normal" />
-          <Button type="submit" variant="contained" color="primary" disabled={!isValid} className="login-button">Login</Button>
+          <Typography className='errorsecond'>Password at least 8 digit</Typography>
+          {errors.password && touched.password && <div className="error">{errors.password}</div>}
+          <Button type="submit" variant="contained" color="primary" className="login-button" >Login</Button>
           <Typography>OR</Typography>
           <Button typre="register" variant="contained" color="primary"className="login-button" href='/register'>Registration</Button>
-          {error && <Typography color="error">{classes.error}</Typography>}
         </Form>
        
         </div>

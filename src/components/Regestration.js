@@ -85,11 +85,16 @@ function Regestration() {
             <Field as={TextField} name="name" label="Username" fullWidth margin="normal" />
             <Field as={TextField} name="email" label="Email" fullWidth margin="normal" />
             <Field as={TextField} name="password" label="Password" type="password" fullWidth margin="normal" />
+            <Typography className='errorsecond'>Password at least 8 digit</Typography>
            <Field as={TextField} name="confirmPassword" label="Confirm Password" type="password" fullWidth margin="normal" />
             <br/>
             <div className="button-container">
-            <Button type="submit" variant="contained" color="primary" disabled={!isValid} size='large'>Register</Button>
-            <Button typre="register" variant="contained" color="primary" href='/' size='medium'>Back to Login</Button>
+              
+              <div><Button type="submit" variant="contained" color="primary" disabled={!isValid} size='large' className='Register'>Register</Button></div>
+              <div className='size'>
+            <div><Button typre="register" variant="contained" color="primary" href='/' size='medium'>Back to Login</Button>
+            </div>
+            </div>
             </div>
           </Form>
         )}

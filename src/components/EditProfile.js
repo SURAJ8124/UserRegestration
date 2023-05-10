@@ -74,11 +74,16 @@ const EditProfile = ({newUser,toggleVisibility}) => {
               <Field as={TextField} name="name" label="Username" fullWidth margin="normal" />
               <Field as={TextField} name="password" label="Password" type="password" fullWidth margin="normal" />
               <Field as={TextField} name="email" label="Enter your registerd email" fullWidth margin="normal" />
+              <div className="button-container">
               <Button type="submit" variant="contained" color="primary" disabled={!isValid}>Update</Button>
+              <div className='size'>
+              <Button className='HomeButton' variant="contained" color="primary" onClick={back} >Back too Home</Button>
+              </div>
+              </div>
             </Form>
           )}
         </Formik>
-        <Button className='HomeButton' variant="contained" color="primary" onClick={back} >Edit Profile</Button>
+     
       </div>
       {showPopUp && <PopUp message={message} showPopUp={showPopUp} />}
     </>

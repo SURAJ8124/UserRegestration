@@ -21,13 +21,15 @@ const HomePage = ({setuser,setUpdate}) => {
       Home Page
           </Typography>
           <div className='homePageDetails'>
-          {user?<Typography > Name: {user._id}</Typography>:"Plese login"}
+          {user?<Typography className='HomePagee'> User Id: {user._id}</Typography>:"Plese login"}
           {user?<Typography > Name: {user.name}</Typography>:"Plese login"}
           {user?<Typography> EmailId:{user.email}</Typography>:"Plese login"}
           {user?<Typography> Password:{user.password}</Typography>:"Plese login"}
           </div>
+          <div className="button-container">
     <Button className='HomeButton' variant="contained" color="primary" onClick={LogOut} >LogOut</Button>
     <Button className='HomeButton' variant="contained" color="primary" onClick={toggleVisibility} >Edit Profile</Button>
+    </div>
     </form>:
      <EditProfile newUser={user._id}toggleVisibility={toggleVisibility} setUpdate={setUpdate}/>}
      </>

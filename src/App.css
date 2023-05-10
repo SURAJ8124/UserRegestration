@@ -37,9 +37,8 @@ button[type="submit"] {
 
 .error {
   color: red;
-  font-size: 14px;
-  margin-top: 5px;
-  margin-bottom: 10px;
+  font-size: 0.8em;
+  margin-top: 0.5em;
 }
 
 .login-form {
@@ -127,5 +126,18 @@ button[type="submit"] {
   justify-content: space-between;
   flex: 1;
   margin: 0 5px;
+  padding-left: 20px;
 
+}
+.size{
+  padding-top: 15px;
+}
+
+.errorsecond{
+color: #9b9b9b;
+}
+
+.HomePagee{
+   size: 20px;
+  font-size: xx-large;
 }
